@@ -4,9 +4,16 @@ var 员工信息 = `
 
 
 var 实习生信息 = `
+
+
+
 `
 
 var 员工合同 = `
+
+
+
+
 `
 
 if(员工信息.length > 实习生信息.length){
@@ -569,9 +576,12 @@ var renderRelationSex = function(id,value) {
 
 var renderIndustry = function (id, value) {
     console.log(value)
-    renderDropdownList(id,value, function(value){
-        return "Other (OT)"
-    })
+    if(isFTE){
+        renderDropdownList(id,value, function(value){
+            return "Other (OT)"
+        })
+    }
+    
 }
 
 
@@ -637,9 +647,9 @@ var renderChildCerType = function (id, value) {
 var renderChildRen = function(id, value) {
     renderDropdownList(id, value, function(value){
         if(value.indexOf("男") >= 0){
-            return "F"
-        } else {
             return "M"
+        } else {
+            return ""
         }
     })
 }
@@ -787,7 +797,7 @@ var content = {
         "func": renderRelationSex
     },
     "E1_CITYCOUNTRY": {
-        "value":  "Shanghai"
+        "value":  (function(){if(isFTE) {return "Shanghai"} else {return ""}})()
     },
     "E1_INDUSTRY": {
         "value": "xxx",
